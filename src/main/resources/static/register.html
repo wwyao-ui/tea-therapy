@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<!-- Head -->
+<head>
+    <title>注册</title>
+    <!-- Meta-Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- style_userLogin CSS -->
+    <link rel="stylesheet" href="css/style_userLogin.css" type="text/css" media="all">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all">
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Mukta:300,400,500" rel="stylesheet">
+</head>
+<!-- //Head -->
+<!-- Body -->
+<body>
+<div class="main">
+    <div class="bottom-grid">
+        <div class="logo">
+            <h1> <a href="">欢迎注册</a></h1>
+        </div>
+    </div>
+    <div class="content-w3ls">
+        <div class="text-center icon">
+            <span class="fa fa-meetup"></span>
+        </div>
+        <div class="content-bottom">
+            <form id="registerFrom" method="post">
+                <div class="field-group">
+                    <div class="wthree-field">
+                        <span class="fa fa-user" aria-hidden="true"></span>
+                        <input name="username" id="username" type="text" placeholder="用户名" required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="wthree-field">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <input name="password" id="password" type="Password" placeholder="密码">
+                    </div>
+                </div>
+                <div class="wthree-field">
+                    <button type="submit" class="btn" onclick="registerUser()">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function registerUser() {
+        const name = document.getElementById('username').value;
+        const pwd = document.getElementById('password').value;
+        const user = {name:name, pwd:pwd};
+        console.log(user);
+        fetch('/user/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(response => {
+                // if (!response.ok) {
+                //     throw new Error('Network response was not ok');
+                // }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                alert('注册成功');
+                window.location.href='userLogin.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('注册失败');
+            });
+    }
+</script>
+</body>
+<!-- Body -->
+</html>

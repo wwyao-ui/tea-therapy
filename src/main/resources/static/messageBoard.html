@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>留言板</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+</div>
+<!-- Spinner End -->
+
+
+<!-- Navbar Start -->
+<div id="navbar-container"></div>
+<script src="js/loadNavbar.js"></script>
+<!-- Navbar End -->
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">留言板</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Testimonial Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="fs-5 fw-medium fst-italic text-primary">留言板</p>
+            <h1 class="display-6">茶间留香</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.5s">
+            <!--用户进行留言-->
+            <div class="testimonial-item p-4 p-lg-5">
+                <form id="messageForm" method="post">
+                    <label for="name">姓名:</label>
+                    <input type="text" id="name" name="name" required>
+                    <br>
+                    <label for="message">留言:</label>
+                    <!--留言格式需要调整，它不能根据页面大小变化-->
+                    <textarea id="message" name="message" rows="4" cols="50" required></textarea>
+                    <button type="submit" onclick="submitMessage()" class="btn btn-primary rounded-pill py-3 px-5">提交留言</button>
+                </form>
+            </div>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.5s" id="liuyan">
+            <!-- 留言列表将通过JavaScript动态生成 -->
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+<!--start 进行留言和查看留言功能-->
+<script>
+
+    function submitMessage(event) {//提交留言//留言内容要判空
+        event.preventDefault();
+        var name=document.getElementById('name').value;
+        var liuyan=document.getElementById('message').value;
+        // 构建JSON数据
+        var message = {
+            name: name,
+            liuyan: liuyan
+        };
+        console.log(message);
+        if (!name || !liuyan) {
+            alert('姓名和留言都不能为空！');
+            return;
+        }
+        console.log(message);
+        // 发送POST请求
+        fetch('/message/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+        })
+            .then(response => {
+                alert('进入留言成功!');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return fetchMessages();
+            })
+            .then(data => {
+                console.log('Response:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+                alert('提交留言时发生错误！');
+            });
+
+    }
+    let currentPage = 1;
+    const pageSize = 10;
+    function fetchMessages(page =currentPage) {
+        currentPage = page+1;
+        fetch(`/message/listPage?pageNum=${page}&pageSize=${pageSize}`)
+                .then(response => response.json())
+            .then(data => {
+                console.log(data); // 打印出返回的数据，以便检查格式
+                const messagesContainer = document.getElementById('liuyan');
+                messagesContainer.innerHTML = ''; // 清空现有的留言列表
+                if (data.code === 200) {//注意数据的格式
+                    // 遍历data数组
+                    data.data.records.forEach(message => {
+                        // 将每条留言添加到DOM中
+                        addMessageToDOM(message);
+                    });
+                        addPagination(data.data.total, pageSize, page);
+                } else {
+                    // 处理错误情况
+                    console.error('获取留言失败:', data.msg);
+                }
+            })
+            .catch(error => {
+                console.error('获取留言失败:', error);
+                alert('获取留言失败')
+            });
+    }
+    function addPagination(total, size, currentPage) {
+        const pageCount = Math.ceil(total / size);
+        let paginationContainer = document.getElementById('pagination-container');
+        if (!paginationContainer) {
+            paginationContainer = document.createElement('div');
+            paginationContainer.id = 'pagination-container';
+            paginationContainer.className = 'pagination';
+            document.getElementById('liuyan').after(paginationContainer); // 将分页容器放在留言列表之后
+        }
+            paginationContainer.innerHTML = ''; // 清空现有的分页按钮
+        for (let i = 0; i < pageCount; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i+1;
+            pageButton.onclick = () => {
+                currentPage=i+1;
+                fetchMessages(currentPage);
+            }
+            if (i+1 === currentPage) {//如果在当前页面，就禁用该页码按钮
+                pageButton.disabled = true;
+            }
+            paginationContainer.appendChild(pageButton);
+        }
+    }
+        function addMessageToDOM(message) {
+            const messagesContainer = document.getElementById('liuyan');
+
+            // 创建外层div
+            const testimonialItem = document.createElement('div');
+            testimonialItem.className = 'testimonial-item p-4 p-lg-5';
+
+            // 创建p标签并设置内容
+            const p = document.createElement('p');
+            p.className = 'mb-4';
+            p.textContent = `Message: ${message.liuyan}`;
+            testimonialItem.appendChild(p);
+
+            // 创建内层div，包含文本
+            const innerDiv = document.createElement('div');
+            innerDiv.className = 'd-flex align-items-center justify-content-center';
+
+            // 创建包含用户名称的div
+            const userInfoDiv = document.createElement('div');
+            userInfoDiv.className = 'text-start ms-3';
+
+            // 创建h5标签并设置用户名称
+            const h5 = document.createElement('h5');
+            h5.textContent = `Name: ${message.name}`;
+            userInfoDiv.appendChild(h5);
+
+            // 将用户信息div添加到内层div中
+            innerDiv.appendChild(userInfoDiv);
+
+            // 将内层div添加到外层div中
+            testimonialItem.appendChild(innerDiv);
+
+            // 将外层div添加到留言容器中
+            messagesContainer.appendChild(testimonialItem);
+        }
+    window.onload = function () {
+        const messageForm = document.getElementById('messageForm');
+        messageForm.addEventListener('submit', submitMessage); // 为表单添加提交事件监听器
+        fetchMessages();
+    };
+</script>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
+
+</html>

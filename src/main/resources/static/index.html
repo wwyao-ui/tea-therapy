@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <title>茶养</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        .green-bg {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(136, 180, 78, 0.7); /* 绿色半透明背景 */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* 文本居中显示 */
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+</div>
+<!-- Spinner End -->
+
+
+<!-- Navbar Start -->
+<div id="navbar-container"></div>
+<script src="js/loadNavbar.js"></script>
+
+<!-- Navbar End -->
+
+
+<!-- Carousel Start -->
+
+<!-- Carousel Start --><!--还需要修改和看是否加文字；暂时拟定图片：首页：图片：1.茶研究人 2.茶推荐（） 3.茶科普 4.茶与国际？？ -->
+<div class="container-fluid px-0 mb-5">
+    <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="w-100" src="img/黑茶研究人.png" alt="Image">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100" src="img/carousel-2.jpg" alt="Image">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7 text-center">
+                                <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">TEA House</strong></p>
+                                <h1 class="display-1 text-dark mb-4 animated zoomIn">Organic & Quality Tea Production</h1>
+                                <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Explore More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--可以直接加第三张图片-->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+<!-- 茶养 个性化推荐中药茶饮 -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-6 text-end">
+                        <!-- 替换为绿色背景容器 -->
+                        <div class="green-bg w-100 mb-3 wow fadeIn" data-wow-delay="0.1s"  style="background-image: url('img/bg1.jpg')">
+                            <div id="weather">
+                                <!-- 在这里添加你的内容 -->
+                            </div>
+                        </div>
+                        <img class="img-fluid bg-white w-50 wow fadeIn" data-wow-delay="0.2s" src="img/about-3.jpg" alt="">
+                    </div>
+                    <div class="col-6">
+                        <img class="img-fluid bg-white w-50 mb-3 wow fadeIn" data-wow-delay="0.3s" src="img/about-4.jpg" alt="">
+                        <!-- 替换为绿色背景容器 -->
+                        <div class="green-bg w-100 wow fadeIn" data-wow-delay="0.4s" style="background-image: url('img/bg2.jpg')">
+                            <div id="recommend">
+                                <!-- 在这里添加你的内容 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">茶养</p>
+                    <h1 class="display-6">中药茶饮</h1>
+                </div>
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-4">
+                        <img class="img-fluid bg-white w-100" src="img/about-5.jpg" alt="">
+                    </div>
+                    <div class="col-sm-8">
+                        <h5>Our tea is one of the most popular drinks in the world</h5>
+                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit</p>
+                    </div>
+                </div>
+                <div class="border-top mb-4"></div>
+                <div class="row g-3">
+                    <div class="col-sm-8">
+                        <h5>Daily use of a cup of tea is good for your health</h5>
+                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img class="img-fluid bg-white w-100" src="img/about-6.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- About End-->
+    <script>
+        async function fetchWeatherRecommend() {
+            try {
+                const response = await fetch('/weather/tea_weather');
+                const data = await response.json();
+                console.log(data);
+                if (data && data.data && data.data.lives && data.data.lives.length > 0) {
+                    const liveData = data.data.lives[0];
+                    document.getElementById('weather').innerText =
+                        "长沙岳麓区的天气：" + liveData.weather +
+                        "\n温度：" + liveData.temperature + "°C" +
+                        "\n湿度：" + liveData.humidity +
+                        "\n风力：" + liveData.windpower +
+                        "\n风向：" + liveData.winddirection +
+                        "\n预报发布时间：" + liveData.reporttime;
+                    document.getElementById('recommend').innerText =
+                        "\n适宜喝：\n" +data.msg;
+                } else {
+                    console.error('Invalid data format or no data available.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+<!-- 茶科普中的六大茶系 代码重复性较高，需改进Start -->
+<div class="container-fluid product py-5 my-5">
+    <div class="container py-5">
+        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="fs-5 fw-medium fst-italic text-primary">茶叶百科</p>
+            <h1 class="display-6">六大茶系</h1>
+        </div>
+        <div class="owl-carousel product-carousel wow fadeInUp" data-wow-delay="0.5s">
+            <a href="" class="d-block product-item rounded">
+                <img src="img/祁门红茶1.jpg" width="600" height="400" style="max-width: 100%; height: auto;" alt="">
+                <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                    <h4 class="text-primary">红茶</h4>
+                    <span class="text-body">全发酵茶，色泽乌润，汤色红艳，味厚带焦苦，香气独特，代表有祁门红茶。</span>
+                </div>
+            </a>
+            <a href="" class="d-block product-item rounded">
+                <img src="img/西湖龙井.jpg" width="600" height="400" style="max-width: 100%; height: auto;" alt="">
+                <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                    <h4 class="text-primary">绿茶</h4>
+                    <span class="text-body">不发酵茶，色泽鲜绿，汤色碧绿，清新爽口，富含营养，如西湖龙井。</span>
+                </div>
+            </a>
+            <a href="" class="d-block product-item rounded">
+                <img src="img/安溪铁观音.jpg" width="600" height="400" style="max-width: 100%; height: auto;" alt="">
+                <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                    <h4 class="text-primary">青茶</h4>
+                    <span class="text-body">半发酵茶，香气高长，滋味醇厚，甘鲜回甘，代表有安溪铁观音。</span>
+                </div>
+            </a>
+            <a href="" class="d-block product-item rounded">
+                <img src="img/黄茶1.jpg" width="600" height="400" style="max-width: 100%; height: auto;" alt="">
+                <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                    <h4 class="text-primary">黄茶</h4>
+                    <span class="text-body">轻发酵茶，独特“闷黄”工艺，色泽黄亮，滋味鲜爽，如君山银针。</span>
+                </div>
+            </a>
+            <a href="" class="d-block product-item rounded">
+                <img src="img/云南普洱茶.jpg" width="600" height="400" style="max-width: 100%; height: auto;" alt="">
+                <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                    <h4 class="text-primary">黑茶</h4>
+                    <span class="text-body">后发酵茶，汤色橙黄或褐色，陈香醇厚，耐泡耐煮，有益健康，如云南普洱茶。</span>
+                </div>
+            </a>
+            <a href="" class="d-block product-item rounded">
+                <img src="img/白毫银针.jpg" width="600" height="400" style="max-width: 100%; height: auto;" alt="">
+                <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                    <h4 class="text-primary">白茶</h4>
+                    <span class="text-body">微发酵茶，制作简单，色泽银白，汤色黄绿清澈，口感清淡回甘，如白毫银针。</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+
+<!-- Article Start -->
+<!--中国茶史_茶的发展史-->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                <img class="img-fluid" src="img/article.jpg" alt="">
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">中国茶史</p>
+                    <h1 class="display-6">茶的发展史</h1>
+                </div>
+                <a href="history.html" class="mb-3">
+                    神农时代(旧石器-前221)：
+                    传说神农尝百草,日遇七十二毒,得茶而解之。
+                    <br>
+                    魏晋南北朝(222-589)：
+                    三国东吴时期出现“以茶代酒”;开始人工栽培 茶树,当菜食。南北朝“茗粥”或与中药配伍。
+                    <br>
+                    隋唐(581-618)：
+                    唐代饮茶风俗盛行,茶成为国饮,陆羽《茶 经》定标准,是世界上最早的茶学专著,对中 国茶文化都产生深远的影响。
+                    <br>
+                    宋元(960-1368)：
+                    从传统的紧压茶类,逐步改为生产末茶、散茶。 茶饮活动进入了活跃时代,开始出现许多茶馆文 化,种茶、制茶、点茶技艺精进。
+                    <br>
+                    明清(1368-1911)：
+                    朱元璋”废团茶、兴叶茶”,加速茶叶发展。六 大茶类出现,饮茶的步骤也由繁入简,茶叶的生 产、销售等经济层面较前朝有相当大的增长, 清代是中国茶叶对外贸易空前繁荣的时期。
+                    <br>
+                    民国到现代(1912-至今)：
+                    中国茶叶进入了从传统茶叶向现代茶叶发展的 时期,扩大增加茶叶产量,提高茶叶产品质量,名优 茶大比重逐年上升。
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Article End -->
+
+
+<!-- Video Start -->
+<!--茶与国际-->
+<div class="container-fluid video my-5">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-lg-6 py-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="py-5">
+                    <h1 class="display-6 mb-4">茶与国际</h1>
+                    <div class="row g-4 mb-5">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark">茶马古道</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark">万里茶道</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark">国际茶日</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-light rounded-pill py-3 px-5" href="teaAndInternational.html">查看更多</a>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                                        <button type="button" class="btn-play" data-bs-toggle="modal"
+                                                data-src="#" data-bs-target="#videoModal">
+                                            <span></span>
+                                        </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Video End -->
+
+<!-- Video Modal Start -->
+<div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">茶与国际</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 16:9 aspect ratio -->
+                <div class="ratio ratio-16x9">
+                    <iframe id="videoIframe" width="100%" height="100%" src="/video/茶马古道.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="prevVideo">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextVideo">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframe = document.getElementById('videoIframe');
+        const prevBtn = document.getElementById('prevVideo');
+        const nextBtn = document.getElementById('nextVideo');
+        let videos = ['/video/茶马古道.mp4', '/video/万里茶道.mp4','/video/国际茶日.mp4'];
+        let currentVideoIndex = 0;
+
+        // 更新iframe的src
+        function updateVideoSrc(index) {
+            if (index >= 0 && index < videos.length) {
+                currentVideoIndex = index;
+                iframe.src = videos[index];
+            }
+        }
+
+        // 监听前进按钮
+        nextBtn.addEventListener('click', function() {
+            updateVideoSrc(currentVideoIndex + 1);
+        });
+
+        // 监听后退按钮
+        prevBtn.addEventListener('click', function() {
+            updateVideoSrc(currentVideoIndex - 1);
+        });
+
+        // 初始化视频
+        updateVideoSrc(0);
+    });
+</script>
+<!-- Video Modal End -->
+
+<!-- 留言板 Start -->
+<div class="container-fluid testimonial py-5 my-5">
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-medium fst-italic text-primary">留言板</p>
+                <h1 class="display-6">茶间留香</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.5s" id="liuyan">
+                <!-- 留言列表将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function fetchMessages() {
+        fetch('/message/latest') // 调用新的API获取最新的三条留言
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) { // 假设后端直接返回留言数组
+                    const messagesContainer = document.getElementById('liuyan');
+                    messagesContainer.innerHTML = ''; // 清空现有的留言列表
+                    data.forEach(message => { // 遍历最新的三条留言
+                        addMessageToDOM(message); // 将每条留言添加到DOM中
+                    });
+                }
+                else{
+                    console.error('没有获取到留言数据');
+                }
+            })
+            .catch(error => {
+                console.error('获取留言失败:', error);
+                alert('获取留言失败');
+            });
+    }
+    function addMessageToDOM(message) {
+        const messagesContainer = document.getElementById('liuyan');
+        // 创建外层div
+        const testimonialItem = document.createElement('div');
+        testimonialItem.className = 'testimonial-item p-4 p-lg-5';
+        // 创建p标签并设置内容
+        const p = document.createElement('p');
+        p.className = 'mb-4';
+        p.textContent = `Message: ${message.liuyan}`;
+        testimonialItem.appendChild(p);
+        // 创建内层div，包含文本
+        const innerDiv = document.createElement('div');
+        innerDiv.className = 'd-flex align-items-center justify-content-center';
+        // 创建包含用户名称的div
+        const userInfoDiv = document.createElement('div');
+        userInfoDiv.className = 'text-start ms-3';
+        // 创建h5标签并设置用户名称
+        const h5 = document.createElement('h5');
+        h5.textContent = `Name: ${message.name}`;
+        userInfoDiv.appendChild(h5);
+        // 将用户信息div添加到内层div中
+        innerDiv.appendChild(userInfoDiv);
+        // 将内层div添加到外层div中
+        testimonialItem.appendChild(innerDiv);
+        // 将外层div添加到留言容器中
+        messagesContainer.appendChild(testimonialItem);
+    }
+    window.onload = function () {
+        fetchWeatherRecommend();
+        fetchMessages(); // 页面加载时获取并显示最新的三条留言
+    }
+</script>
+<!--留言板 end-->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
+
+</html>

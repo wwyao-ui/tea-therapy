@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<!-- Head -->
+<head>
+    <title>登录</title>
+    <!-- Meta-Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- style_userLogin CSS -->
+    <link rel="stylesheet" href="css/style_userLogin.css" type="text/css" media="all">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all">
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Mukta:300,400,500" rel="stylesheet">
+
+</head>
+<!-- //Head -->
+<!-- Body -->
+<body>
+    <div class="main">
+        <div class="bottom-grid">
+            <div class="logo">
+                <h1> <a href="">欢迎登录</a></h1>
+            </div>
+        </div>
+        <div class="content-w3ls">
+            <div class="text-center icon">
+                <span class="fa fa-meetup"></span>
+            </div>
+            <div class="content-bottom">
+                <form id="loginForm" method="post">
+                    <div class="field-group">
+                        <span class="fa fa-user" aria-hidden="true"></span>
+                        <div class="wthree-field"><input name="username" id="username" type="text" value="" placeholder="用户名" required></div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <div class="wthree-field"><input name="password" id="password" type="Password" placeholder="密码"></div>
+                    </div>
+                    <div class="field-group">
+                        <div class="wthree-field" style="display: flex;">
+                            <input type="text" name="vcode" id="vcode" placeholder="输入验证码">
+                            <img src="/captcha" alt="验证码图片" id="captchaImage">
+                        </div>
+                    </div>
+                    <div class="wthree-field"><button type="submit" class="btn">登录</button></div>
+                    <ul class="list-login">
+                        <li class="switch-agileits"><label class="switch"><input type="checkbox"><span class="slider round"></span>保持登录状态</label></li>
+                        <li><a href="#" class="text-right">忘记密码</a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <ul class="list-login-bottom"><li class=""><a href="register.html" class="">注册</a></li></ul>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const vcode=document.getElementById('vcode').value;
+            console.log(vcode)
+
+            const formData=new FormData();
+            formData.append('username',username);
+            formData.append('password',password);
+            formData.append('vcode',vcode);
+            console.log(formData);
+            fetch('/user/loginSubmit', {
+                method: 'POST',
+                body: formData, // 注意这里没有设置 Content-Type，因为 FormData 自动处理
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.code === 200) {
+                        // 登录成功
+                        console.log(data);
+                        alert('登录成功！');
+                        // 可以进行页面跳转或其他操作
+                        window.location.href='/index.html';
+                    } else {
+                        // 登录失败
+                        alert(data.msg);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+</body>
+<!-- Body -->
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>茶与养生</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar Start -->
+<div id="navbar-container"></div>
+<script src="js/loadNavbar.js"></script>
+    <!-- Navbar End -->
+
+<!--调查问卷-->
+<!-- 调查问卷模态框 -->
+<div class="modal fade" id="surveyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">调查问卷</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="surveyForm">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="submitSurvey" onclick="collectAndSummarizeScores()">提交问卷</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // 假设这是从后端获取数据的函数
+    async function fetchQuestions() {
+        const response = await fetch('/questions/select');
+        const data = await response.json();
+        console.log(data);
+        return data;
+    }
+
+    // 定义固定的选项数组
+    const options = [
+        { id: 1, score: 1, text: '没有' },
+        { id: 2, score: 2, text: '很少' },
+        { id: 3, score: 3, text: '有时' },
+        { id: 4, score: 4, text: '经常' },
+        { id: 5, score: 5, text: '总是' }
+    ];
+    const moduleNameMap = {
+        1: '1. 根据近一年的体验和感觉回答以下问题（平和质）',
+        2: '2. 根据近一年的体验和感觉回答以下问题（气虚质）',
+        3: '3. 根据近一年的体验和感觉回答以下问题（阳虚质）',
+        4: '4. 根据近一年的体验和感觉回答以下问题（阴虚质）',
+        5: '5. 根据近一年的体验和感觉回答以下问题（痰湿质）',
+        6: '6. 根据近一年的体验和感觉回答以下问题（湿热质）',
+        7: '7. 根据近一年的体验和感觉回答以下问题（血瘀质）',
+        8: '8. 根据近一年的体验和感觉回答以下问题（气郁质）',
+        9: '9. 根据近一年的体验和感觉回答以下问题（特禀质）'
+    };
+    // 动态生成问卷问题和选项
+    let questions=null;
+    async function generateSurvey() {
+        const surveyForm = document.getElementById('surveyForm');
+        questions = await fetchQuestions();
+
+        let currentModuleId = null;
+        let currentModuleName = null;
+
+        questions.data.forEach(question => {
+            console.log(question.questionnaireid);
+            if (currentModuleId !== question.questionnaireid) {
+                // 新模块开始
+                if (currentModuleName) {
+                    // 添加模块分割线
+                    const hr = document.createElement('hr');
+                    surveyForm.appendChild(hr);
+                }
+                currentModuleId = question.questionnaireid;
+                currentModuleName = moduleNameMap[currentModuleId];
+
+                // 添加模块标题
+                const moduleTitle = document.createElement('h4');
+                moduleTitle.textContent = currentModuleName;
+                surveyForm.appendChild(moduleTitle);
+            }
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'mb-3';
+            questionDiv.id = `question${question.id}Wrapper`;
+
+            const questionLabel = document.createElement('label');
+            questionLabel.className = 'form-label';
+            questionLabel.textContent = question.content;
+            questionLabel.setAttribute('for', `question${question.id}`);
+            questionLabel.id = `question${question.id}Label`;
+            questionDiv.appendChild(questionLabel);
+
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            rowDiv.setAttribute('aria-labelledby', `question${question.id}Label`);
+
+            options.forEach(option => {
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col';
+
+                const formCheckDiv = document.createElement('div');
+                formCheckDiv.className = 'form-check';
+
+                const input = document.createElement('input');
+                input.className = 'form-check-input';
+                input.type = 'radio';
+                input.name = `question${question.id}`; // 使用问题的id作为name属性
+                input.id = `question${question.id}_option${option.id}`;
+                input.dataset.group=`${question.questionnaireid}`;
+                input.value = option.score;
+                input.required = true;
+                formCheckDiv.appendChild(input);
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.textContent = option.text;
+                label.setAttribute('for', `question${question.id}_option${option.id}`);
+                formCheckDiv.appendChild(label);
+
+                colDiv.appendChild(formCheckDiv);
+                rowDiv.appendChild(colDiv);
+            });
+
+            questionDiv.appendChild(rowDiv);
+            surveyForm.appendChild(questionDiv);
+        });
+        const hr = document.createElement('hr');
+        surveyForm.appendChild(hr);
+
+    }
+    function collectAndSummarizeScores() {
+        sendDataToBackend();
+        const scoreSummary = {}; // 创建一个对象来存储每个分组的总分
+        let groupId=null;
+        // 获取所有单选按钮
+        const radios = document.querySelectorAll('input[type="radio"]:checked');
+        // 遍历所有选中的单选按钮
+        radios.forEach(radio => {
+            groupId = radio.dataset.group; // 从data-group属性获取分组ID
+            const score = parseInt(radio.value, 10); // 解析分数为整数
+            console.log(score);
+            // 如果该分组尚未在scoreSummary对象中，则初始化其总分为0
+            if (!scoreSummary[groupId]) {
+                scoreSummary[groupId] = 0;
+            }
+            // 累加该分组的总分
+            scoreSummary[groupId] += score;
+            console.log(scoreSummary);
+
+        });
+        for (const key in scoreSummary) {
+            if (scoreSummary.hasOwnProperty(key)) {
+                let value = scoreSummary[key];
+                value=parseInt(value,10);
+                sendDataToBackend(key.toString(),value);
+            }
+        }
+        getTea();
+    }
+    function sendDataToBackend(questionnaireid,lscore) {
+        // 使用URLSearchParams来构建表单编码的请求体
+        const params = new URLSearchParams();
+        params.append('questionnaireid', questionnaireid);
+        params.append('lscore', lscore);
+
+        fetch('/calculation/addlscore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params.toString() // 将URLSearchParams转换为字符串作为请求体
+        })
+            .then(response => {
+                console.log('Response status:n', response.status); // 打印响应状态码
+                console.log('Response headers:', response.headers); // 打印响应头
+                // if (!response.ok) {
+                //     throw new Error('Failed to send data to backend');
+                // }
+                return response.json(); // 返回解析后的JSON数据
+            })
+            .then(data => {
+                console.log('Response data:', data); // 打印响应数据，可用于调试
+                // 检查后端返回的结果状态
+                // if (data.status !== 'ok') {
+                //     throw new Error(data.message || 'Unknown error from backend');
+                // }
+                console.log('Data sent successfully.');
+            })
+            .catch(error => {
+                console.error('Error:', error); // 打印错误信息，用于调试
+            });
+    }
+    generateSurvey();
+</script>
+<script>
+        function getTea() {
+        fetch('/calculation/judge')
+            .then(response => {
+                // if (!response.ok) {
+                //     throw new Error('Network response was not ok');
+                // }
+                return response.json();
+                console.log(response);
+            })
+            .then(data => {
+                if (data.code === 200) {
+                    document.getElementById('constitutionType').textContent = data.msg;
+                    const teas = data.data;
+                    const teaList = document.getElementById('teaList');
+                    teaList.innerHTML = ''; // 清空列表
+                    for (const teaName in teas) {
+                        const li = document.createElement('li');
+                        li.textContent = teaName + ': ' + teas[teaName];
+                        teaList.appendChild(li);
+                    }
+                } else {
+                    alert('获取数据失败，请检查网络连接。');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('请求失败，请检查网络连接。');
+            });
+        }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = new bootstrap.Modal(document.getElementById('surveyModal'));
+        const form = document.getElementById('surveyForm');
+        const submitButton = document.getElementById('submitSurvey');
+        const content = document.querySelector('.blocked-content');
+        // 显示模态框
+        modal.show();
+        // 监听表单提交
+        submitButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (form.checkValidity()) {
+                // 隐藏模态框
+                modal.hide();
+                // 允许访问页面内容
+                content.classList.remove('blocked-content');
+            } else {
+                form.reportValidity();
+            }
+        });
+    });
+
+</script>
+
+<!-- Video Modal Start -->
+
+    <!-- Page Header Start -->
+
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-2 text-dark mb-4 animated slideInDown">茶与养生</h1>
+
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-6 text-end">
+                            <img class="img-fluid bg-white w-100 mb-3 wow fadeIn" data-wow-delay="0.1s" src="img/about-1.jpg" alt="">
+                            <img class="img-fluid bg-white w-50 wow fadeIn" data-wow-delay="0.2s" src="img/about-3.jpg" alt="">
+                        </div>
+                        <div class="col-6">
+                            <img class="img-fluid bg-white w-50 mb-3 wow fadeIn" data-wow-delay="0.3s" src="img/about-4.jpg" alt="">
+                            <img class="img-fluid bg-white w-100 wow fadeIn" data-wow-delay="0.4s" src="img/about-2.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                    <div class="section-title">
+                        <p class="fs-5 fw-medium fst-italic text-primary">茶与养生</p>
+                        <h1 class="display-6">推荐 您的体质是：</h1><div id="constitutionType" class="display-6"></div>
+                    </div>
+                    <div id="teaList" class="mb-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

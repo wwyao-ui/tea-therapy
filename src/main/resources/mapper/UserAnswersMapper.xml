@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserAnswersMapper">
+
+    <resultMap type="com.example.demo.entity.UserAnswers" id="UserAnswersResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="userId"/>
+        <result property="questionId" column="questionId"/>
+        <result property="optionId" column="optionId" />
+        <result property="questionnaireId" column="questionnaireId" />
+    </resultMap>
+
+
+
+    <select id="selectUserAnswersById" parameterType="String" resultMap="UserAnswersResult">
+        select s.*
+        from user_answer s
+        where s.userId = #{userId}
+    </select>
+</mapper>

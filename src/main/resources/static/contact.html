@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 问答界面</title>
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            width: 80vw;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #fafafa;
+        }
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background-color: #f8f9fa;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 15px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 80%;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .user {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            text-align: right;
+            align-self: flex-end;
+        }
+        .ai {
+            background-color: #e9ecef;
+            color: #495057;
+            text-align: left;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AI 问答</h1>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="输入你的问题...">
+        <button onclick="askModel()">发送</button>
+    </div>
+</div>
+
+<script>
+    function askModel() {
+        const userInput = document.getElementById("user-input").value;
+        const chatBox = document.getElementById("chat-box");
+
+        if (userInput.trim() === '') return;
+
+        // 显示用户消息
+        const userMessage = document.createElement("div");
+        userMessage.className = "message user";
+        userMessage.textContent = userInput;
+        chatBox.appendChild(userMessage);
+
+        // 清空输入框
+        document.getElementById("user-input").value = '';
+
+        // 向后端发送请求
+        fetch('/api/ask?question=' + encodeURIComponent(userInput), {
+            method: 'POST'
+        })
+            .then(response => response.text())
+            .then(answer => {
+                // 显示 AI 的回复，并将换行符替换为 <br>
+                const aiMessage = document.createElement("div");
+                aiMessage.className = "message ai";
+                aiMessage.innerHTML = answer.replace(/\n/g, "<br>");
+                chatBox.appendChild(aiMessage);
+
+                // 滚动到底部
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // 错误处理（可以显示一条错误信息）
+                const errorMessage = document.createElement("div");
+                errorMessage.className = "message ai";
+                errorMessage.textContent = "AI 出现错误，请稍后重试。";
+                chatBox.appendChild(errorMessage);
+            });
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Tea House - Tea Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .video {
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar Start -->
+<div id="navbar-container"></div>
+<script src="js/loadNavbar.js"></script>
+<!-- Navbar End -->
+
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">茶与国际</h1>
+    </div>
+</div>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img id="previewImage1" class="img-fluid" src="img/茶马古道.webp" alt="">
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="section-title">
+                        <h1 class="display-6">茶马古道</h1>
+                    </div>
+                    <p class="mb-3">
+                        茶马古道是以川藏道、滇藏道与青藏道（甘青道）三条大道为主线，
+                        辅以众多的支线、附线，构成的一个庞大的交通网络。
+                        地跨陕、甘、贵、川、滇、青、藏，外延达南亚、西亚、中亚和东南亚各国。
+                        茶马古道主要干线主要分南、北两条道，即滇藏道和川藏道。
+                        茶马古道的存在推动了各民族经济文化的发展，凝聚了各民族的精神，加强了各民族间的团结。
+                        茶马古道是推动民族和睦、维护边疆安全的团结之道。
+                        茶马古道是中国统一的历史见证，也是民族团结的象征。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img id="previewImage2" class="img-fluid" src="img/万里茶道.jpg" alt="">
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="section-title">
+                        <h1 class="display-6">万里茶道</h1>
+                    </div>
+                    <p class="mb-3">
+                        万里茶道从中国福建崇安（现武夷山市）起，
+                        途经江西、湖南、湖北、河南、山西、河北、内蒙古、
+                        从伊林（现二连浩特）进入现蒙古国境内、沿阿尔泰军台，
+                        穿越沙漠戈壁，经库伦（现乌兰巴托）到达中俄边境的通商口岸恰克图。
+                        全程约4760公里，其中水路1480公里，陆路3280公里。
+                        茶道在俄罗斯境内继续延伸，
+                        从恰克图经伊尔库茨克、新西伯利亚、秋明、莫斯科、圣彼得堡等十几个城市，
+                        又传入中亚和欧洲其他国家，使茶叶之路干线总长13000 余公里，
+                        沟通了亚洲大陆南北方向农耕文明与草原游牧文明的核心区域，
+                        并延伸至中亚和东欧等地区。成为名副其实的“万里茶路”。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img id="previewImage3" class="img-fluid" src="img/国际茶日.webp" alt="">
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="section-title">
+                        <h1 class="display-6">国际茶日</h1>
+                    </div>
+                    <p class="mb-3">
+                        “国际茶日”于2019年11月27日第74届联合国大会宣布设立，时间为每年5月21日，
+                        以赞美茶叶对经济、社会和文化的价值，
+                        是以中国为主的产茶国家首次成功推动设立的农业领域国际性节日。
+                        中国是茶的故乡。千载以来，品茗饮茶在中国被视为生活之雅事，盛世之清尚。
+                        中国茶文化兴于唐代，在开放、包容、自信、辉煌的唐朝，
+                        茶从农作物逐步进入到了国家政治、经济、文化的各个领域，
+                        形成独有的大唐茶文化，茶圣陆羽也正是在唐代写下了《茶经》。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="videoContainer1" class="video-container">
+        <span id="closeButton1" class="close-button">&times;</span>
+        <video id="video1" class="video" controls>
+            <source src="/video/茶马古道.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div id="videoContainer2" class="video-container">
+        <span id="closeButton2" class="close-button">&times;</span>
+        <video id="video2" class="video" controls>
+            <source src="/video/万里茶道.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div id="videoContainer3" class="video-container">
+        <span id="closeButton3" class="close-button">&times;</span>
+        <video id="video3" class="video" controls>
+            <source src="/video/国际茶日.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!--点击图片播放视频-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = [
+                {
+                    preview: document.getElementById('previewImage1'),
+                    container: document.getElementById('videoContainer1'),
+                    closeButton: document.getElementById('closeButton1'),
+                    video: document.getElementById('video1')
+                },
+                {
+                    preview: document.getElementById('previewImage2'),
+                    container: document.getElementById('videoContainer2'),
+                    closeButton: document.getElementById('closeButton2'),
+                    video: document.getElementById('video2')
+                },
+                {
+                    preview: document.getElementById('previewImage3'),
+                    container: document.getElementById('videoContainer3'),
+                    closeButton: document.getElementById('closeButton3'),
+                    video: document.getElementById('video1')
+                }
+            ];
+            videos.forEach(video => {
+                video.container.style.display = 'none'; // 明确设置初始状态为隐藏
+                // 点击图片时显示视频
+                video.preview.addEventListener('click', function() {
+                    video.container.style.display = 'flex'; // 使用flex布局显示视频
+                    video.video.play();
+                });
+                // 点击关闭按钮时隐藏视频
+                video.closeButton.addEventListener('click', function() {
+                    video.container.style.display = 'none';
+                    video.video.pause();
+                    video.video.currentTime = 0; // 重置视频位置
+                });
+                // 当视频结束时自动关闭
+                video.video.addEventListener('ended', function() {
+                    video.container.style.display = 'none';
+                });
+            });
+        });
+
+
+
+        //        document.addEventListener('DOMContentLoaded', function() {
+//            var previewImage = document.getElementById('previewImage');
+//            var videoContainer = document.getElementById('videoContainer');
+//            var closeButton = document.getElementById('closeButton');
+//            var video = document.getElementById('video');
+//
+//            var previewImage2 = document.getElementById('previewImage2');
+//            var videoContainer2 = document.getElementById('videoContainer2');
+//            var closeButton2 = document.getElementById('closeButton2');
+//            var video2 = document.getElementById('video2');
+//
+//            videoContainer.style.display = 'none';
+//            videoContainer2.style.display = 'none';// 明确设置初始状态为隐藏
+//
+//            // 点击图片时显示视频
+//            previewImage.addEventListener('click', function() {
+//                videoContainer.style.display = 'flex'; // 使用flex布局显示视频
+//                video.play();
+//            });
+//
+//            // 点击关闭按钮时隐藏视频
+//            closeButton.addEventListener('click', function() {
+//                videoContainer.style.display = 'none';
+//                video.pause();
+//                video.currentTime = 0; // 重置视频位置
+//            });
+//
+//            // 当视频结束时自动关闭
+//            video.addEventListener('ended', function() {
+//                videoContainer.style.display = 'none';
+//            });
+//
+//            // 点击第二张图片时显示第二个视频
+//            // 点击图片时显示视频
+//            previewImage2.addEventListener('click', function() {
+//                videoContainer2.style.display = 'flex'; // 使用flex布局显示视频
+//                video2.play();
+//            });
+//
+//            // 点击关闭按钮时隐藏视频
+//            closeButton2.addEventListener('click', function() {
+//                videoContainer2.style.display = 'none';
+//                video2.pause();
+//                video2.currentTime = 0; // 重置视频位置
+//            });
+//
+//            // 当视频结束时自动关闭
+//            video2.addEventListener('ended', function() {
+//                videoContainer2.style.display = 'none';
+//            });
+//        });
+    </script>
+
+    <!-- 资讯 Start -->
+    <div class="row g-5">
+        <div class="section-title" >
+            <h2 class="display-6" align="center">相关资讯</h2>
+        </div>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <ul id="teaAndInternational-container"></ul>
+        </div>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <ul id="teaAndInternational-container2"></ul>
+        </div>
+    </div>
+
+
+    <script>
+        window.onload=async function (){
+            const response = await fetch('/news/teaAndInternational');
+            const data = await response.json();
+            console.log(data);
+            const teaAndInternational1 = document.getElementById('teaAndInternational-container');
+            const teaAndInternational2 = document.getElementById('teaAndInternational-container2');
+            const halfData = Math.ceil(data.length / 2);
+            const dataForDiv1 = data.slice(0, halfData);
+            const dataForDiv2 = data.slice(halfData);
+            dataForDiv1.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = item.webContent;
+                a.textContent = item.title;
+                li.appendChild(a);
+                teaAndInternational1.appendChild(li);
+            });
+            // 填充第二个div
+            dataForDiv2.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = item.webContent;
+                a.textContent = item.title;
+                li.appendChild(a);
+                teaAndInternational2.appendChild(li);
+            });
+        }
+    </script>
+    <!-- 资讯 End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
