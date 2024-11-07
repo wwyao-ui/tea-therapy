@@ -1,0 +1,16 @@
+{
+  "feature_paths": {
+    "tea_category": "D:\\ahomework\\tea-therapy\\scripts\\dict\\Category.txt",
+    "tea_name": "D:\\ahomework\\tea-therapy\\scripts\\dict\\TeaType.txt",
+    "effect": "D:\\ahomework\\tea-therapy\\scripts\\dict\\Effect.txt",
+    "group": "D:\\ahomework\\tea-therapy\\scripts\\dict\\Group.txt",
+    "constitution": "D:\\ahomework\\tea-therapy\\scripts\\dict\\Constitution.txt",
+    "origin": "D:\\ahomework\\tea-therapy\\scripts\\dict\\Origin.txt"
+  },
+  "question_types": {
+    "tea_description": ["介绍", "描述", "特点"],
+    "tea_effect": ["功效", "效果", "作用"],
+    "tea_suitable_group": ["适合人群", "适宜人群"],
+    "tea_origin": ["产地", "主产区"]
+  }
+}
