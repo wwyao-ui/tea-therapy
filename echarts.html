@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>teaAndPublic</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+
+    <!-- Libraries Stylesheet -->
+    <link href="html_lib/animate/animate.min.css" rel="stylesheet">
+    <link href="html_lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts-wordcloud.min.js"></script>
+
+
+</head>
+
+<body>
+<!-- Navbar Start -->
+<div id="navbar-container"></div>
+<script src="js/loadNavbar.js"></script>
+<!-- Navbar End -->
+
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">茶与大众</h1>
+    </div>
+</div>
+<!-- 黑茶 -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <img src="img/echarts/blackTea.jpg">
+                </div>
+            </div>
+
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">黑茶系舆论词云图</p >
+                </div>
+                <div id="teaList" class="mb-0">
+                    <div id="word_cloud1" style="width: 100%;height:500px;display: inline-block"></div>
+                    <script type="text/javascript" >
+                        var chart1 = echarts.init(document.getElementById('word_cloud1'), 'green', {renderer: 'canvas'});
+                        //var maskImg = new Image();
+                        //maskImg.src ='img/leaf/yezi1.jpg'
+                        var app1={
+                            word1:[],
+                            count1:[]
+                        };
+                        $(document).ready(function () {
+                            getBlackData();
+                        });
+                        function getBlackData() {
+                            $.ajax({
+                                url: '/getBlackData',  // 后端接口
+                                data: {},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 检查数据是否正确
+                                    console.log(data); // 确保获取到的数据格式正确
+                                    if (data && Array.isArray(data) && data.length > 0) {
+                                        var words = [];
+                                        var counts = [];
+                                        data.forEach(function(item) {
+                                            words.push(item.word);
+                                            counts.push(item.count);
+                                        });
+
+                                        var aa = [];
+                                        for (var i = 0; i < words.length; i++) {
+                                            aa.push({
+                                                name: words[i],
+                                                value: counts[i]
+                                            });
+                                        }
+
+                                        let option = {
+                                            tooltip: { show: true },  // 鼠标悬停时显示词频
+                                            series: [{
+                                                width:612,
+                                                height:500,
+                                                name: '词云图',
+                                                type: 'wordCloud',
+                                                //maskImage:maskImg,
+                                                backgroundColor:'green',
+                                                sizeRange: [15, 100],
+                                                size: ['100%', '100%'],
+                                                rotationRange: [-90, 90],  // 旋转范围
+                                                rotationStep: 30,  // 旋转步长
+                                                gridSize: 15,
+                                                drawOutOfBound: false,
+                                                shape: "diamond",
+                                                textStyle: {
+                                                    color: function () {
+                                                        return 'rgb(' + [
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256)
+                                                        ].join(',') + ')';
+                                                    }
+                                                },
+                                                data: aa, // 数据
+                                            }]
+                                        };
+                                        //maskImg.onload = function(){
+                                        chart1.setOption(option); //} // 渲染词云图
+                                    } else {
+                                        console.error("数据格式不正确！");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("请求失败: " + error);
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--红茶-->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">红茶系舆论词云图</p >
+                </div>
+                <div  class="mb-0">
+                    <div id="word_cloud2" style="width: 100%;height:500px;display: inline-block"></div>
+                    <script type="text/javascript" >
+                        var chart2 = echarts.init(document.getElementById('word_cloud2'), 'green', {renderer: 'canvas'});
+                        //var maskImg2 = new Image();
+                          //  maskImg2.src ='img/leaf/yezi1.jpg'
+                        var app2={
+                            word1:[],
+                            count1:[]
+                        };
+                        $(document).ready(function () {
+                            getRedData();
+                            console.log(app2.word1);
+                            console.log(app2.count1);
+
+                        });
+                        function getRedData() {
+                            $.ajax({
+                                url: '/getRedData',  // 后端接口
+                                data: {},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 检查数据是否正确
+                                    console.log(data); // 确保获取到的数据格式正确
+                                    if (data && Array.isArray(data) && data.length > 0) {
+                                        var words = [];
+                                        var counts = [];
+                                        data.forEach(function(item) {
+                                            words.push(item.word);
+                                            counts.push(item.count);
+                                        });
+
+                                        var aa = [];
+                                        for (var i = 0; i < words.length; i++) {
+                                            aa.push({
+                                                name: words[i],
+                                                value: counts[i]
+                                            });
+                                        }
+
+                                        let option = {
+                                            tooltip: { show: true },  // 鼠标悬停时显示词频
+                                            series: [{
+                                                width:612,
+                                                height:500,
+                                                name: '词云图',
+                                                type: 'wordCloud',
+                                                //maskImage:maskImg2,
+                                                sizeRange: [15, 100],
+                                                size: ['100%', '100%'],
+                                                rotationRange: [-90, 90],  // 旋转范围
+                                                rotationStep: 30,  // 旋转步长
+                                                gridSize: 15,
+                                                drawOutOfBound: false,
+                                                shape: "diamond",
+                                                textStyle: {
+                                                    color: function () {
+                                                        return 'rgb(' + [
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256)
+                                                        ].join(',') + ')';
+                                                    }
+                                                },
+                                                data: aa, // 数据
+                                            }]
+                                        };
+
+                                        chart2.setOption(option);  // 渲染词云图
+                                    } else {
+                                        console.error("数据格式不正确！");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("请求失败: " + error);
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <img src="img/echarts/redTea.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 绿茶 -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <img src="img/echarts/greenTea.jpg">
+                </div>
+            </div>
+
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">绿茶系舆论词云图</p >
+                </div>
+                <div  class="mb-0">
+                    <div id="word_cloud3" style="width: 100%;height:500px;display: inline-block"></div>
+                    <script type="text/javascript" >
+                        var chart3 = echarts.init(document.getElementById('word_cloud3'), 'green', {renderer: 'canvas'});
+                        //var maskImg3 = new Image();
+                        //maskImg3.src ='img/leaf/yezi1.jpg'
+                        var app3={
+                            word1:[],
+                            count1:[]
+                        };
+                        $(document).ready(function () {
+                            getGreenData();
+                        });
+                        function getGreenData() {
+                            $.ajax({
+                                url: '/getGreenData',  // 后端接口
+                                data: {},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 检查数据是否正确
+                                    console.log(data); // 确保获取到的数据格式正确
+                                    if (data && Array.isArray(data) && data.length > 0) {
+                                        var words = [];
+                                        var counts = [];
+                                        data.forEach(function(item) {
+                                            words.push(item.word);
+                                            counts.push(item.count);
+                                        });
+
+                                        var aa = [];
+                                        for (var i = 0; i < words.length; i++) {
+                                            aa.push({
+                                                name: words[i],
+                                                value: counts[i]
+                                            });
+                                        }
+
+                                        let option = {
+                                            tooltip: { show: true },  // 鼠标悬停时显示词频
+                                            //backgroundColor:''
+                                            series: [{
+                                                width:612,
+                                                height:500,
+                                                name: '词云图',
+                                                type: 'wordCloud',
+                                                //maskImage:maskImg3,
+                                                sizeRange: [15, 100],
+                                                size: ['100%', '100%'],
+                                                rotationRange: [-90, 90],  // 旋转范围
+                                                rotationStep: 30,  // 旋转步长
+                                                gridSize: 15,
+                                                drawOutOfBound: false,
+                                                //shape: "diamond",
+                                                textStyle: {
+                                                    color: function () {
+                                                        return 'rgb(' + [
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256)
+                                                        ].join(',') + ')';
+                                                    }
+                                                },
+                                                data: aa, // 数据
+                                            }]
+                                        };
+                                        //maskImg.onload = function(){
+                                        chart3.setOption(option); //} // 渲染词云图
+                                    } else {
+                                        console.error("数据格式不正确！");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("请求失败: " + error);
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--白茶-->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">白茶系舆论词云图</p >
+                </div>
+                <div  class="mb-0">
+                    <div id="word_cloud4" style="width: 100%;height:500px;display: inline-block"></div>
+                    <script type="text/javascript" >
+                        var chart4 = echarts.init(document.getElementById('word_cloud4'), 'green', {renderer: 'canvas'});
+                        //var maskImg4 = new Image();
+                          //  maskImg4.src ='img/leaf/yezi1.jpg'
+                        var app4={
+                            word1:[],
+                            count1:[]
+                        };
+                        $(document).ready(function () {
+                            getWhiteData();
+                        });
+                        function getWhiteData() {
+                            $.ajax({
+                                url: '/getWhiteData',  // 后端接口
+                                data: {},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 检查数据是否正确
+                                    console.log(data); // 确保获取到的数据格式正确
+                                    if (data && Array.isArray(data) && data.length > 0) {
+                                        var words = [];
+                                        var counts = [];
+                                        data.forEach(function(item) {
+                                            words.push(item.word);
+                                            counts.push(item.count);
+                                        });
+
+                                        var aa = [];
+                                        for (var i = 0; i < words.length; i++) {
+                                            aa.push({
+                                                name: words[i],
+                                                value: counts[i]
+                                            });
+                                        }
+
+                                        let option = {
+                                            tooltip: { show: true },  // 鼠标悬停时显示词频
+                                            series: [{
+                                                width:612,
+                                                height:500,
+                                                name: '词云图',
+                                                type: 'wordCloud',
+                                                //maskImage:maskImg4,
+                                                sizeRange: [15, 100],
+                                                size: ['100%', '100%'],
+                                                rotationRange: [-90, 90],  // 旋转范围
+                                                rotationStep: 30,  // 旋转步长
+                                                gridSize: 15,
+                                                drawOutOfBound: false,
+                                                //shape: "diamond",
+                                                textStyle: {
+                                                    color: function () {
+                                                        return 'rgb(' + [
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256)
+                                                        ].join(',') + ')';
+                                                    }
+                                                },
+                                                data: aa, // 数据
+                                            }]
+                                        };
+
+                                        chart4.setOption(option);  // 渲染词云图
+                                    } else {
+                                        console.error("数据格式不正确！");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("请求失败: " + error);
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <img src="img/echarts/whiteTea.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 黄茶 -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <img src="img/echarts/yellowTea.jpg">
+                </div>
+            </div>
+
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">黄茶系舆论词云图</p >
+                </div>
+                <div  class="mb-0">
+                    <div id="word_cloud5" style="width: 100%;height:500px;display: inline-block"></div>
+                    <script type="text/javascript" >
+                        var chart5 = echarts.init(document.getElementById('word_cloud5'), 'green', {renderer: 'canvas'});
+                        //var maskImg5 = new Image();
+                        //    maskImg5.src ='img/leaf/yezi1.jpg'
+                        var app5={
+                            word1:[],
+                            count1:[]
+                        };
+                        $(document).ready(function () {
+                            getYellowData();
+                        });
+                        function getYellowData() {
+                            $.ajax({
+                                url: '/getYellowData',  // 后端接口
+                                data: {},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 检查数据是否正确
+                                    console.log(data); // 确保获取到的数据格式正确
+                                    if (data && Array.isArray(data) && data.length > 0) {
+                                        var words = [];
+                                        var counts = [];
+                                        data.forEach(function(item) {
+                                            words.push(item.word);
+                                            counts.push(item.count);
+                                        });
+
+                                        var aa = [];
+                                        for (var i = 0; i < words.length; i++) {
+                                            aa.push({
+                                                name: words[i],
+                                                value: counts[i]
+                                            });
+                                        }
+
+                                        let option = {
+                                            tooltip: { show: true },  // 鼠标悬停时显示词频
+                                            //backgroundColor:''
+                                            series: [{
+                                                width:612,
+                                                height:500,
+                                                name: '词云图',
+                                                type: 'wordCloud',
+                                                //maskImage:maskImg5,
+                                                sizeRange: [15, 100],
+                                                size: ['100%', '100%'],
+                                                rotationRange: [-90, 90],  // 旋转范围
+                                                rotationStep: 30,  // 旋转步长
+                                                gridSize: 15,
+                                                drawOutOfBound: false,
+                                                //shape: "diamond",
+                                                textStyle: {
+                                                    color: function () {
+                                                        return 'rgb(' + [
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256)
+                                                        ].join(',') + ')';
+                                                    }
+                                                },
+                                                data: aa, // 数据
+                                            }]
+                                        };
+                                        //maskImg.onload = function(){
+                                        chart5.setOption(option);  // 渲染词云图
+                                        //}
+                                    } else {
+                                        console.error("数据格式不正确！");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("请求失败: " + error);
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--乌龙茶-->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">乌龙茶系舆论词云图</p >
+                </div>
+                <div  class="mb-0">
+                    <div id="word_cloud6" style="width: 100%;height:500px;display: inline-block"></div>
+                    <script type="text/javascript" >
+                        var chart6 = echarts.init(document.getElementById('word_cloud6'), 'green', {renderer: 'canvas'});
+                        //var maskImg6 = new Image();
+                          //  maskImg6.src ='img/leaf/yezi1.jpg'
+                        var app6={
+                            word1:[],
+                            count1:[]
+                        };
+                        $(document).ready(function () {
+                            getWulongData();
+                        });
+                        function getWulongData() {
+                            $.ajax({
+                                url: '/getWulongData',  // 后端接口
+                                data: {},
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 检查数据是否正确
+                                    console.log(data); // 确保获取到的数据格式正确
+                                    if (data && Array.isArray(data) && data.length > 0) {
+                                        var words = [];
+                                        var counts = [];
+                                        data.forEach(function(item) {
+                                            words.push(item.word);
+                                            counts.push(item.count);
+                                        });
+
+                                        var aa = [];
+                                        for (var i = 0; i < words.length; i++) {
+                                            aa.push({
+                                                name: words[i],
+                                                value: counts[i]
+                                            });
+                                        }
+
+                                        let option = {
+                                            tooltip: { show: true },  // 鼠标悬停时显示词频
+                                            series: [{
+                                                width:612,
+                                                height:500,
+                                                name: '词云图',
+                                                type: 'wordCloud',
+                                                //maskImage:maskImg6,
+                                                sizeRange: [15, 100],
+                                                size: ['100%', '100%'],
+                                                rotationRange: [-90, 90],  // 旋转范围
+                                                rotationStep: 30,  // 旋转步长
+                                                gridSize: 15,
+                                                drawOutOfBound: false,
+                                                shape: "diamond",
+                                                textStyle: {
+                                                    color: function () {
+                                                        return 'rgb(' + [
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256),
+                                                            Math.round(Math.random() * 256)
+                                                        ].join(',') + ')';
+                                                    }
+                                                },
+                                                data: aa, // 数据
+                                            }]
+                                        };
+
+                                        chart6.setOption(option);  // 渲染词云图
+                                    } else {
+                                        console.error("数据格式不正确！");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("请求失败: " + error);
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <img src="img/echarts/wulongTea.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
